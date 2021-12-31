@@ -39,6 +39,12 @@ const Products = () => {
               <div className="filter-boxes">
                 <form action="">
                   <input
+                    onChange={(e) => {
+                      dispatch({
+                        type: ACTIONS.SEARCH,
+                        payload: e.target.value,
+                      });
+                    }}
                     type="search"
                     name="search"
                     id="search-box"

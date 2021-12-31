@@ -68,19 +68,32 @@ const shopReducer = (state = initial_state, action) => {
         return a.price - b.price;
       }
       if (action.payload === "asc") {
-        return sortedItems;
+        if (a.title.toLowerCase() < b.title.toLowerCase()) {
+          return -1;
+        }
+        if (a.title.toLowerCase() > b.title.toLowerCase()) {
+          return 1;
+        }
+      }
+      if (action.payload === "dsc") {
+        if (a.title.toLowerCase() > b.title.toLowerCase()) {
+          return -1;
+        }
+        if (b.title.toLowerCase() < a.title.toLowerCase()) {
+          return 1;
+        }
       }
     });
 
+    console.log(sortedItems, "sortedItems");
     return {
       ...state,
       shopItems: sortedItems,
     };
   }
-  if (action.type === ACTIONS.SORT_BY_LOWEST) {
-    let sortByLowest = state.filteredCategories.sort(
-      (a, b) => a.price - b.price
-    );
+
+  if (action.type === ACTIONS.SORT_BY_A_Z) {
+    let sortByLowest = state.filteredCategories.map((item) => item.title);
     return {
       ...state,
       shopItems: sortByLowest,
@@ -161,6 +174,20 @@ const shopReducer = (state = initial_state, action) => {
     return {
       ...state,
       cartItems: newCartItems,
+    };
+  }
+  if (action.type === ACTIONS.SEARCH) {
+    let searchedItems = state.filteredCategories.filter((item) => {
+      if (action.payload === "") {
+        return item;
+      }
+      if (item.title.toLowerCase().includes(action.payload.toLowerCase())) {
+        return item;
+      }
+    });
+    return {
+      ...state,
+      shopItems: searchedItems,
     };
   } else {
     return state;

@@ -2,7 +2,7 @@ import React from "react";
 import { ACTIONS } from "./Store/action";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import Item from "./Item";
+import Item from "./CartItem";
 const Items = ({ products, colorItems }) => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.shop);
@@ -43,7 +43,6 @@ const Items = ({ products, colorItems }) => {
           </select>
         </label> */}
         <form>
-          <label htmlFor="sort">sort by</label>
           <select
             onChange={(e) => {
               dispatch({
@@ -56,6 +55,10 @@ const Items = ({ products, colorItems }) => {
             id="sort"
             className="sort-input"
           >
+            {" "}
+            <option value="" disabled selected>
+              Sort By
+            </option>
             <option value="lowest">price (lowest)</option>
             <option value="highest">price (highest)</option>
             <option value="asc">name (a - z)</option>
@@ -64,55 +67,59 @@ const Items = ({ products, colorItems }) => {
         </form>
       </article>
       <section className="grid-section products-box">
-        {products.map((item, index) => {
-          return (
-            <div key={index} className="card ">
-              <img src={item.image} className="card-img-top" />
-              <div className="card-body">
-                <h4>{item.title}</h4>
-                <p className="card-text">Price:{item.price} Rs</p>
-                <button
-                  onClick={() => addToCart(item.id)}
-                  className="btn btn-warning"
-                  type="button"
-                  data-bs-toggle="offcanvas"
-                  data-bs-target="#offcanvasRight"
-                  aria-controls="offcanvasRight"
-                >
-                  Add To Cart
-                </button>
+        {products.length ? (
+          products.map((item, index) => {
+            return (
+              <div key={index} className="card ">
+                <img src={item.image} className="card-img-top" />
+                <div className="card-body">
+                  <h4>{item.title}</h4>
+                  <p className="card-text">Price:{item.price} Rs</p>
+                  <button
+                    onClick={() => addToCart(item.id)}
+                    className="btn btn-warning"
+                    type="button"
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasRight"
+                    aria-controls="offcanvasRight"
+                  >
+                    Add To Cart
+                  </button>
 
-                <div
-                  className="offcanvas offcanvas-end"
-                  tabIndex="-1"
-                  id="offcanvasRight"
-                  aria-labelledby="offcanvasRightLabel"
-                >
-                  <div className="offcanvas-header">
-                    <h5 id="offcanvasRightLabel">Your Cart</h5>
-                    <button
-                      type="button"
-                      className="btn-close text-reset"
-                      data-bs-dismiss="offcanvas"
-                      aria-label="Close"
-                    ></button>
+                  <div
+                    className="offcanvas offcanvas-end"
+                    tabIndex="-1"
+                    id="offcanvasRight"
+                    aria-labelledby="offcanvasRightLabel"
+                  >
+                    <div className="offcanvas-header">
+                      <h5 id="offcanvasRightLabel">Your Cart</h5>
+                      <button
+                        type="button"
+                        className="btn-close text-reset"
+                        data-bs-dismiss="offcanvas"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div className="offcanvas-body">
+                      {state.cartItems.length === 0 && (
+                        <div>
+                          <h3>Your Cart is empty</h3>
+                        </div>
+                      )}
+                      {state.cartItems.map((item) => {
+                        return <Item key={item.id} {...item} item={item} />;
+                      })}
+                    </div>
+                    <h2>Total Price:{state.totalPrice} </h2>
                   </div>
-                  <div className="offcanvas-body">
-                    {state.cartItems.length === 0 && (
-                      <div>
-                        <h3>Your Cart is empty</h3>
-                      </div>
-                    )}
-                    {state.cartItems.map((item) => {
-                      return <Item key={item.id} {...item} item={item} />;
-                    })}
-                  </div>
-                  <h2>Total Price:{state.totalPrice} </h2>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })
+        ) : (
+          <h2>Sorry no items found</h2>
+        )}
       </section>
     </div>
   );
