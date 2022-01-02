@@ -29,6 +29,22 @@ const Products = () => {
   return (
     <div>
       <Navbar />
+      {state.isAuthenticated ? (
+        <div
+          class="alert alert-success alert-dismissible d-flex align-items-center"
+          role="alert"
+        >
+          <button
+            data-bs-dismiss="alert"
+            type="button"
+            class="btn-close"
+            aria-label="Close"
+          ></button>
+          <div>An example alert with an icon</div>
+        </div>
+      ) : (
+        ""
+      )}
       <section className="products-container">
         <div className="header">
           <h1>All the Products You Want!</h1>

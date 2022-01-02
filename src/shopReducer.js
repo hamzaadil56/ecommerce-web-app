@@ -19,6 +19,7 @@ const initial_state = {
   cartItems: [],
   totalPrice: 0,
   totalItems: 0,
+  isAuthenticated: false,
 };
 const shopReducer = (state = initial_state, action) => {
   if (action.type === ACTIONS.FILTER_CATEGORY) {
@@ -188,6 +189,13 @@ const shopReducer = (state = initial_state, action) => {
     return {
       ...state,
       shopItems: searchedItems,
+    };
+  }
+  if (action.type === ACTIONS.AUTHENTICATION) {
+    return {
+      ...state,
+      isAuthenticated: true,
+      currentUser: action.payload,
     };
   } else {
     return state;

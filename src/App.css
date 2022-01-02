@@ -126,3 +126,9 @@
 .cart-icon {
   font-size: 30px;
 }
+.profile-pic {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  object-fit: cover;
+}

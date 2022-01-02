@@ -2,10 +2,9 @@ import "./App.css";
 import "./fontawesome-free-5.15.4-web/css/all.min.css";
 import React from "react";
 import "./App.css";
+import Login from "./Authentication/Login";
 import { links } from "./data";
-import Products from "./Products";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import Home from "./Home";
 import { useSelector } from "react-redux";
 const Navbar = () => {
   function capitalize(string) {
@@ -61,7 +60,10 @@ const Navbar = () => {
                 </span>
               </button>
             </div>
-            <button className="btn btn-warning">Login</button>
+            <Login />
+            {/* <button onClick={() => googleLogin()} className="btn btn-warning">
+              Login
+            </button> */}
           </div>
         </div>
       </nav>

@@ -102,14 +102,26 @@ const Items = ({ products, colorItems }) => {
                       ></button>
                     </div>
                     <div className="offcanvas-body">
-                      {state.cartItems.length === 0 && (
+                      {state.cartItems.length === 0 ? (
                         <div>
                           <h3>Your Cart is empty</h3>
                         </div>
+                      ) : (
+                        <div>
+                          {state.cartItems.map((item) => {
+                            return <Item key={item.id} {...item} item={item} />;
+                          })}
+                          {state.isAuthenticated ? (
+                            <button className="btn btn-danger">
+                              Proceed to Checkout
+                            </button>
+                          ) : (
+                            <button className="btn btn-warning">
+                              Login to Proceed to Checkout
+                            </button>
+                          )}
+                        </div>
                       )}
-                      {state.cartItems.map((item) => {
-                        return <Item key={item.id} {...item} item={item} />;
-                      })}
                     </div>
                     <h2>Total Price:{state.totalPrice} </h2>
                   </div>
