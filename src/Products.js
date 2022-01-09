@@ -53,7 +53,7 @@ const Products = () => {
           <section className="aside section">
             <aside className="filter-container">
               <div className="filter-boxes">
-                <form action="">
+                <form onSubmit={(e) => e.preventDefault()} action="">
                   <input
                     onChange={(e) => {
                       dispatch({

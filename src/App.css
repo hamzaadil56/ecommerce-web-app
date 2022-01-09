@@ -132,3 +132,10 @@
   border-radius: 50%;
   object-fit: cover;
 }
+.checkout-box {
+  width: 50%;
+  background-color: rgb(245, 243, 243);
+}
+td {
+  vertical-align: middle;
+}

@@ -3,7 +3,10 @@ import { ACTIONS } from "./Store/action";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import Item from "./CartItem";
+import Login from "./Authentication/Login";
+import { useHistory } from "react-router-dom";
 const Items = ({ products, colorItems }) => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const state = useSelector((state) => state.shop);
   const addToCart = (id) => {
@@ -112,13 +115,14 @@ const Items = ({ products, colorItems }) => {
                             return <Item key={item.id} {...item} item={item} />;
                           })}
                           {state.isAuthenticated ? (
-                            <button className="btn btn-danger">
+                            <button
+                              onClick={() => history.push("/checkout")}
+                              className="btn btn-danger"
+                            >
                               Proceed to Checkout
                             </button>
                           ) : (
-                            <button className="btn btn-warning">
-                              Login to Proceed to Checkout
-                            </button>
+                            <Login />
                           )}
                         </div>
                       )}
