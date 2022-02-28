@@ -12,8 +12,6 @@ const Crousel = () => {
       >
         <div className="carousel-inner">
           {crousel_images.map((image, index) => {
-            console.log(i);
-            console.log(index, "Index");
             return (
               <div
                 key={index}

@@ -1,9 +1,5 @@
 export const links = ["home", "products", "about"];
-export const crousel_images = [
-  "./images/delivery.png",
-  "./images/welcome.jpg",
-  "./images/shirts1.jpg",
-];
+export const crousel_images = ["./images/delivery.png", "./images/shirts1.jpg"];
 export const products = [
   {
     title: "Sweat-shirt",

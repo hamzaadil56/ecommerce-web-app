@@ -4,7 +4,9 @@ import Home from "./Home";
 import Products from "./Products";
 import Checkout from "./Checkout";
 import About from "./About";
+import OrderConfirmed from "./Order_Confirmed";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
 function App() {
   return (
     <div className="App">
@@ -21,6 +23,9 @@ function App() {
           </Route>
           <Route exact path="/about">
             <About />
+          </Route>
+          <Route exact path="/order-confirmed">
+            <OrderConfirmed />
           </Route>
         </Switch>
       </Router>

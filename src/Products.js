@@ -3,6 +3,7 @@ import { items, links } from "./data";
 import Navbar from "./Navbar";
 import { products } from "./data";
 import "./App.css";
+import "./fontawesome-free-5.15.4-web/css/all.min.css";
 import Items from "./Items";
 import { ACTIONS } from "./Store/action";
 import { useState } from "react";
@@ -26,21 +27,29 @@ const Products = () => {
   const filterPrice = (e) => {
     dispatch({ type: ACTIONS.FILTER_PRICE, payload: e.target.value });
   };
+  const [isOpen, setOpenFilterContainer] = useState(false);
+  const filterButton = () => {
+    if (isOpen === false) {
+      setOpenFilterContainer(true);
+    } else {
+      setOpenFilterContainer(false);
+    }
+  };
   return (
     <div>
       <Navbar />
       {state.isAuthenticated ? (
         <div
-          class="alert alert-success alert-dismissible d-flex align-items-center"
+          className="alert alert-success alert-dismissible d-flex align-items-center"
           role="alert"
         >
           <button
             data-bs-dismiss="alert"
             type="button"
-            class="btn-close"
+            className="btn-close"
             aria-label="Close"
           ></button>
-          <div>An example alert with an icon</div>
+          <div>Logged In successfully!</div>
         </div>
       ) : (
         ""
@@ -50,8 +59,16 @@ const Products = () => {
           <h1>All the Products You Want!</h1>
         </div>
         <div className="grid-container">
-          <section className="aside section">
+          <section
+            className={isOpen ? "aside section aside-open" : "aside section"}
+          >
             <aside className="filter-container">
+              <button
+                onClick={() => filterButton()}
+                className="btn btn-warning  close-btn"
+              >
+                Close
+              </button>
               <div className="filter-boxes">
                 <form onSubmit={(e) => e.preventDefault()} action="">
                   <input
@@ -112,9 +129,17 @@ const Products = () => {
               </div>
             </aside>
           </section>
-          <Items products={state.shopItems} />
+
+          <Items filterButton={filterButton} products={state.shopItems} />
         </div>
       </section>
+      <div className="container">
+        <footer className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+          <div className="col-md-4 d-flex align-items-center">
+            <span className="text-muted">© 2021 Company, Inc</span>
+          </div>
+        </footer>
+      </div>
     </div>
   );
 };

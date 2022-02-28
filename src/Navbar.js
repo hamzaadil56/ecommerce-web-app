@@ -6,7 +6,14 @@ import Login from "./Authentication/Login";
 import { links } from "./data";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-const Navbar = () => {
+import { getUserData } from "./config";
+import { connect } from "react-redux";
+import { useEffect } from "react";
+
+const Navbar = (props) => {
+  useEffect(() => {
+    props.getUserData();
+  }, []);
   function capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
@@ -16,7 +23,7 @@ const Navbar = () => {
       <nav className="navbar navbar-expand-lg navbar-dark ">
         <div className="navbar-container container-fluid">
           <a className="navbar-brand" href="#">
-            Navbar
+            FashionVilla
           </a>
           <button
             className="navbar-toggler"
@@ -70,5 +77,8 @@ const Navbar = () => {
     </div>
   );
 };
+const mapDispatchToProp = (dispatch) => ({
+  getUserData: () => dispatch(getUserData()),
+});
 
-export default Navbar;
+export default connect(null, mapDispatchToProp)(Navbar);

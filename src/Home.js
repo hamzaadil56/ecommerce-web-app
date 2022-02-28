@@ -4,7 +4,10 @@ import { featured_products } from "./data";
 import Navbar from "./Navbar";
 import Item from "./CartItem";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+
 const Home = () => {
+  const history = useHistory();
   const state = useSelector((state) => state.shop);
   return (
     <div>
@@ -65,8 +68,20 @@ const Home = () => {
             );
           })}
         </section>
-        <button className="btn btn-dark all-products-btn">All Products</button>
+        <button
+          onClick={() => history.push("/products")}
+          className="btn btn-dark all-products-btn"
+        >
+          All Products
+        </button>
       </section>
+      <div className="container">
+        <footer className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+          <div className="col-md-4 d-flex align-items-center">
+            <span className="text-muted">© 2021 Company, Inc</span>
+          </div>
+        </footer>
+      </div>
     </div>
   );
 };

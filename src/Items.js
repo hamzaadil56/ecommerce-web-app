@@ -1,11 +1,11 @@
 import React from "react";
 import { ACTIONS } from "./Store/action";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Item from "./CartItem";
 import Login from "./Authentication/Login";
 import { useHistory } from "react-router-dom";
-const Items = ({ products, colorItems }) => {
+const Items = ({ products, colorItems, filterButton }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const state = useSelector((state) => state.shop);
@@ -16,10 +16,20 @@ const Items = ({ products, colorItems }) => {
   useEffect(() => {
     dispatch({ type: ACTIONS.GET_TOTAL_ITEMS });
   }, [state.cartItems]);
+
   return (
     <div>
       <article>
-        <p>{products.length} products found</p>
+        <p>
+          {products.length} products found
+          <hr />
+        </p>
+        <button
+          onClick={() => filterButton()}
+          className="btn filter-dropdown btn-primary"
+        >
+          Filter
+        </button>
         {/* <label>
           Sort by:
           <select defaultValue="lowest" name="sort" id="sort">
@@ -46,6 +56,7 @@ const Items = ({ products, colorItems }) => {
           </select>
         </label> */}
         <form>
+          {" "}
           <select
             onChange={(e) => {
               dispatch({
@@ -117,7 +128,9 @@ const Items = ({ products, colorItems }) => {
                           {state.isAuthenticated ? (
                             <button
                               onClick={() => history.push("/checkout")}
-                              className="btn btn-danger"
+                              className="btn btn-danger "
+                              aria-label="Close"
+                              data-bs-dismiss="offcanvas"
                             >
                               Proceed to Checkout
                             </button>
